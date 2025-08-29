@@ -10,6 +10,10 @@ load_dotenv()
 
 app = FastAPI(title="PDF 문서 분석기")
 
+@app.get("/")
+async def read_root():
+    return {"status": "ok", "message": "API is running"}
+
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
