@@ -15,25 +15,16 @@ async def read_root():
     return {"status": "ok", "message": "API is running"}
 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from fastapi.middleware.base import BaseHTTPMiddleware
-from fastapi import Request, Response
+from fastapi.responses import Response
 
-# 커스텀 CORS 미들웨어
-class CustomCORSMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next):
-        response = await call_next(request)
-        
-        # 모든 응답에 CORS 헤더 추가
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        response.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-        response.headers["Access-Control-Allow-Headers"] = "*"
-        response.headers["Access-Control-Max-Age"] = "3600"
-        
-        return response
-
-# CORS 미들웨어 추가
-app.add_middleware(CustomCORSMiddleware)
+@app.middleware("http")
+async def add_cors_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    response.headers["Access-Control-Max-Age"] = "3600"
+    return response
 
 # OPTIONS 요청 처리
 @app.options("/api/analyze")
