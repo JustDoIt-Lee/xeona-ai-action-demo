@@ -17,17 +17,26 @@ async def read_root():
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    # Vercel의 프리뷰 배포를 위해 모든 서브도메인 허용
-    allow_origins=[
-        "http://localhost:3000",
-        "https://xeona-ai-action-demo.vercel.app",
-        "https://xeona-ai-action-demo-lmib3aur0-justdoit-lees-projects-8e63c74d.vercel.app"
-    ],
-    allow_origin_regex=r"https://xeona-ai-action-demo-[a-zA-Z0-9\-]+\.vercel\.app",
-    allow_credentials=False,  # credentials 비활성화
+    allow_origins=["*"],  # 개발 테스트를 위해 임시로 모든 origin 허용
+    allow_credentials=False,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=3600
 )
+
+from fastapi.responses import JSONResponse
+
+@app.options("/api/analyze")
+async def analyze_preflight():
+    return JSONResponse(
+        content={"detail": "OK"},
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        }
+    )
 
 @app.post("/api/analyze", response_model=DocumentAnalysis)
 async def analyze_document(file: UploadFile = File(...)):
