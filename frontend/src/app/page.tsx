@@ -87,12 +87,12 @@ export default function Home() {
 
         {/* Upload Area */}
         <div
-          className={`group border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300 
+          className={`group border-2 border-dashed rounded-xl p-14 text-center transition-colors duration-200
             ${isDragging 
-              ? 'border-blue-500 bg-blue-50' 
-              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/60'
+              ? 'border-blue-400 bg-blue-50/80' 
+              : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50/80'
             }
-            ${showUpload ? 'cursor-pointer shadow hover:shadow-md backdrop-blur-sm' : 'hidden'}`}
+            ${showUpload ? 'cursor-pointer shadow-sm' : 'hidden'}`}
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
@@ -131,11 +131,14 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div className="text-gray-600">
-              <svg className="mx-auto h-16 w-16 mb-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-              </svg>
-              <p className="text-lg font-medium text-gray-700">PDF 파일을 드래그하거나 선택해주세요</p>
+            <div className="text-gray-600 flex flex-col items-center">
+              <div className="w-20 h-20 border-2 border-gray-300 rounded-lg mb-4 flex items-center justify-center group-hover:border-blue-400 transition-colors">
+                <span className="text-2xl font-semibold text-gray-400 group-hover:text-blue-400 transition-colors">PDF</span>
+              </div>
+              <div className="space-y-1">
+                <p className="text-lg font-medium text-gray-700">문서를 업로드해주세요</p>
+                <p className="text-sm text-gray-500">클릭하거나 파일을 이곳에 끌어다 놓으세요</p>
+              </div>
             </div>
           )}
         </div>
