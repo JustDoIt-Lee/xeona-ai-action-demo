@@ -29,7 +29,8 @@ async def generate_completion(prompt: str, max_retries: int = 3) -> str:
     """OpenAI API를 사용하여 텍스트를 생성합니다."""
     for attempt in range(max_retries):
         try:
-            completion = await client.chat.completions.create(
+            print(f"OpenAI API 호출 시도 ({attempt + 1}/{max_retries})")
+            response = await client.chat.completions.create(
                 model=GPT_MODEL,
                 messages=[{
                     "role": "system",
@@ -41,11 +42,17 @@ async def generate_completion(prompt: str, max_retries: int = 3) -> str:
                 temperature=0.7,
                 max_tokens=GPT_MAX_TOKENS
             )
-            # Make sure we can access the response before returning
-            if not completion or not completion.choices or not completion.choices[0].message:
+            
+            if not response or not response.choices or not response.choices[0].message:
                 raise ValueError("Invalid response structure from OpenAI API")
-            return completion.choices[0].message.content
+                
+            return response.choices[0].message.content
+            
         except Exception as e:
+            print(f"OpenAI API 호출 오류 (시도 {attempt + 1}/{max_retries}): {str(e)}")
+            if attempt == max_retries - 1:  # 마지막 시도였다면
+                raise  # 에러를 상위로 전파
+            await asyncio.sleep(1)  # 재시도 전 1초 대기
             print(f"OpenAI API 호출 오류 (시도 {attempt + 1}/{max_retries}): {str(e)}")
             if attempt < max_retries - 1:
                 await asyncio.sleep(2 ** attempt)  # exponential backoff
