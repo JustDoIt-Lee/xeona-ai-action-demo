@@ -87,12 +87,12 @@ export default function Home() {
 
         {/* Upload Area */}
         <div
-          className={`group border-2 border-dashed rounded-xl p-16 text-center transition-all duration-300 
+          className={`group border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300 
             ${isDragging 
-              ? 'border-blue-500 bg-blue-50 scale-[1.02] shadow-lg' 
-              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/60 hover:scale-[1.01]'
+              ? 'border-blue-500 bg-blue-50' 
+              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/60'
             }
-            ${showUpload ? 'cursor-pointer shadow-sm hover:shadow-lg backdrop-blur-sm' : 'hidden'}`}
+            ${showUpload ? 'cursor-pointer shadow hover:shadow-md backdrop-blur-sm' : 'hidden'}`}
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
@@ -132,16 +132,10 @@ export default function Home() {
             </div>
           ) : (
             <div className="text-gray-600">
-              <svg className="mx-auto h-16 w-16 mb-6 text-red-400" fill="currentColor" viewBox="0 0 384 512" aria-hidden="true">
-                {/* Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) */}
-                <path d="M320 464c8.8 0 16-7.2 16-16V160H256c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16H320zM0 64C0 28.7 28.7 0 64 0H229.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64z"/>
-                <text x="50%" y="60%" dominantBaseline="middle" textAnchor="middle" fontSize="160" fontWeight="bold" fill="currentColor">PDF</text>
+              <svg className="mx-auto h-16 w-16 mb-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
               </svg>
-              <p className="text-lg font-medium text-gray-700 mb-6">PDF 파일을 여기에 드래그하거나</p>
-              <button className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium
-                hover:bg-blue-600 transform transition-all duration-200 hover:shadow-md">
-                PDF 파일 선택하기
-              </button>
+              <p className="text-lg font-medium text-gray-700">PDF 파일을 드래그하거나 선택해주세요</p>
             </div>
           )}
         </div>
