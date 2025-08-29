@@ -60,9 +60,8 @@ export default function Home() {
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/analyze`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data'
         },
-        withCredentials: false,
       });
       setResult(response.data);
       setShowUpload(false);

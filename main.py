@@ -17,16 +17,15 @@ async def read_root():
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
+    # Vercel의 프리뷰 배포를 위해 모든 서브도메인 허용
     allow_origins=[
-        "https://xeona-ai-action-demo-kyxsn1ls9-justdoit-lees-projects-8e63c74d.vercel.app",
-        "https://xeona-ai-action-demo-4jcolqz2q-justdoit-lees-projects-8e63c74d.vercel.app",
-        "https://xeona-ai-action-demo.vercel.app",
+        "https://*.vercel.app",
         "http://localhost:3000"
     ],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["*"],
-    expose_headers=["*"]
+    allow_origin_regex="https://xeona-ai-action-demo.*vercel\.app",
+    allow_credentials=False,  # credentials 비활성화
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
 @app.post("/api/analyze", response_model=DocumentAnalysis)
