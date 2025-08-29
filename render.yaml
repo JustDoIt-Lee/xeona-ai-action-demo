@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: xeona-ai-backend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+    buildCommand: docker build -t xeona-ai-backend .
+    startCommand: docker run -p 8000:8000 xeona-ai-backend
