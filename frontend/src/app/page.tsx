@@ -23,7 +23,7 @@ export default function Home() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showUpload, setShowUpload] = useState(true);
-  const [selectedKeyword, setSelectedKeyword] = useState<{text: string; context: string[]} | null>(null);
+  const [selectedKeyword, setSelectedKeyword] = useState<{text: string; count: number; context: string[]} | null>(null);
 
   // ESC 키 처리
   useEffect(() => {
@@ -87,12 +87,12 @@ export default function Home() {
 
         {/* Upload Area */}
         <div
-          className={`border-2 border-dashed rounded-xl p-16 text-center transition-all duration-300 
+          className={`group border-2 border-dashed rounded-xl p-12 text-center transition-all duration-200 
             ${isDragging 
-              ? 'border-blue-500 bg-blue-50 scale-[1.02] shadow-lg' 
-              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/60 hover:scale-[1.01]'
+              ? 'border-blue-400 bg-blue-50' 
+              : 'border-gray-300 hover:border-blue-400/60 hover:bg-blue-50/40'
             }
-            ${showUpload ? 'cursor-pointer shadow-sm hover:shadow-lg backdrop-blur-sm' : 'hidden'}`}
+            ${showUpload ? 'cursor-pointer shadow-sm hover:shadow-md' : 'hidden'}`}
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
@@ -125,21 +125,30 @@ export default function Home() {
                 <p className="text-lg font-medium text-gray-700">
                   PDF 문서 분석 중입니다...
                 </p>
-                <p className="text-sm text-gray-500 mt-2">
-                  분석에는 약 30초 정도 소요될 수 있습니다.
-                </p>
               </div>
             </div>
           ) : (
-            <div className="text-gray-600">
-              <svg className="mx-auto h-16 w-16 mb-6 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <p className="text-lg font-medium text-gray-700 mb-6">PDF 파일을 여기에 드래그하거나</p>
-              <button className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium
-                hover:bg-blue-600 transform transition-all duration-200 hover:shadow-md">
-                PDF 파일 선택하기
-              </button>
+            <div className="flex flex-col items-center justify-center space-y-6">
+              <div className="relative">
+                <div className="w-20 h-20 border-2 border-gray-300 rounded-xl flex items-center justify-center transition-colors duration-200 group-hover:border-blue-400">
+                  <svg className="w-10 h-10 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div className="absolute -right-1.5 -top-1.5 w-7 h-7 bg-gray-100 rounded-full border-2 border-gray-300 flex items-center justify-center group-hover:border-blue-400 group-hover:bg-blue-50 transition-colors duration-200">
+                  <svg className="w-3.5 h-3.5 text-gray-500 group-hover:text-blue-500 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/>
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <p className="text-lg font-medium text-gray-600 group-hover:text-gray-900 transition-colors duration-200">
+                  PDF 파일 업로드
+                </p>
+                <p className="text-base text-gray-400 group-hover:text-gray-500">
+                  클릭 또는 드래그하여 문서 추가
+                </p>
+              </div>
             </div>
           )}
         </div>
@@ -244,7 +253,7 @@ export default function Home() {
                     문맥 속 키워드
                   </h3>
                   <p className="text-blue-600 font-medium mt-2">
-                    &ldquo;{selectedKeyword.text}&rdquo; ({selectedKeyword.context.length}개의 문맥)
+                    &ldquo;{selectedKeyword.text}&rdquo; ({selectedKeyword.count}회)
                   </p>
                 </div>
                 <button
