@@ -26,10 +26,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-    allow_credentials=False,  # False로 설정하여 CORS 제한 완화
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 @app.post("/api/analyze", response_model=DocumentAnalysis)
 async def analyze_document(file: UploadFile = File(...)):
