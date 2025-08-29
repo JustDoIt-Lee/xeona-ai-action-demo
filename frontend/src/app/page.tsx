@@ -87,7 +87,9 @@ export default function Home() {
 
         {/* Upload Area */}
         <div
-          className={`dropzone ${isDragging ? 'dragging' : ''} ${showUpload ? '' : 'hidden'}`}
+          className={`border-2 border-dashed rounded-xl p-16 text-center transition-all duration-300 
+            ${isDragging ? 'border-blue-500 bg-blue-50/30 scale-[1.02]' : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50/30'}
+            ${showUpload ? 'cursor-pointer shadow-sm hover:shadow-lg' : 'hidden'}`}
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
@@ -114,9 +116,9 @@ export default function Home() {
             }}
           />
           {isAnalyzing ? (
-            <div className="loading-text">
-              <div className="spinner" />
-              <div>
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+              <div className="text-center">
                 <p className="text-lg font-medium text-gray-700">
                   PDF 문서 분석 중입니다...
                 </p>
@@ -127,13 +129,12 @@ export default function Home() {
             </div>
           ) : (
             <div className="text-gray-600">
-              <div className="icon">
-                <svg className="w-16 h-16 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <p className="text-lg font-medium text-gray-700 mb-4">PDF 파일을 여기에 드래그하거나</p>
-              <button className="button button-primary transform transition-all duration-200 hover:scale-105">
+              <svg className="mx-auto h-16 w-16 mb-6 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <p className="text-lg font-medium text-gray-700 mb-6">PDF 파일을 여기에 드래그하거나</p>
+              <button className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium
+                hover:bg-blue-600 transform transition-all duration-200 hover:shadow-md">
                 PDF 파일 선택하기
               </button>
             </div>
