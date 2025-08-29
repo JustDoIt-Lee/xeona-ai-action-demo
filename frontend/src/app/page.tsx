@@ -236,7 +236,7 @@ export default function Home() {
                     문맥 속 키워드
                   </h3>
                   <p className="text-blue-600 font-medium mt-2">
-                    "{selectedKeyword.text}" ({selectedKeyword.context.length}개의 문맥)
+                    &ldquo;{selectedKeyword.text}&rdquo; ({selectedKeyword.context.length}개의 문맥)
                   </p>
                 </div>
                 <button
