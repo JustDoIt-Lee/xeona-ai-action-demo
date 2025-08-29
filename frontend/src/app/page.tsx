@@ -62,6 +62,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        withCredentials: true,
       });
       setResult(response.data);
       setShowUpload(false);
