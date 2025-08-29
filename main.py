@@ -11,6 +11,7 @@ load_dotenv()
 app = FastAPI(title="PDF 문서 분석기")
 
 @app.get("/")
+@app.head("/")
 async def read_root():
     return {"status": "ok", "message": "API is running"}
 
