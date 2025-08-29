@@ -19,10 +19,11 @@ app.add_middleware(
     CORSMiddleware,
     # Vercel의 프리뷰 배포를 위해 모든 서브도메인 허용
     allow_origins=[
-        "https://*.vercel.app",
-        "http://localhost:3000"
+        "http://localhost:3000",
+        "https://xeona-ai-action-demo.vercel.app",
+        "https://xeona-ai-action-demo-lmib3aur0-justdoit-lees-projects-8e63c74d.vercel.app"
     ],
-    allow_origin_regex="https://xeona-ai-action-demo.*vercel\.app",
+    allow_origin_regex=r"https://xeona-ai-action-demo-[a-zA-Z0-9\-]+\.vercel\.app",
     allow_credentials=False,  # credentials 비활성화
     allow_methods=["*"],
     allow_headers=["*"]
