@@ -6,7 +6,7 @@ from typing import List, Dict
 from collections import Counter
 import re
 from models import DocumentAnalysis, KeywordInfo
-import openai
+from openai import OpenAI
 import httpx
 from dotenv import load_dotenv
 
@@ -19,7 +19,7 @@ if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY environment variable is not set")
 
 # OpenAI 클라이언트 초기화
-openai.api_key = OPENAI_API_KEY
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 # GPT 모델 설정
 GPT_MODEL = "gpt-4-turbo-preview"  # 최신 GPT-4 모델 사용
@@ -29,7 +29,7 @@ async def generate_completion(prompt: str, max_retries: int = 3) -> str:
     """OpenAI API를 사용하여 텍스트를 생성합니다."""
     for attempt in range(max_retries):
         try:
-            completion = await openai.ChatCompletion.acreate(
+            completion = await client.chat.completions.create(
                 model=GPT_MODEL,
                 messages=[{
                     "role": "system",
