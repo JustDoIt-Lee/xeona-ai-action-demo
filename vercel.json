@@ -1,11 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "main.py",
-      "use": "@vercel/python"
-    }
-  ],
+  "buildCommand": "cd frontend && npm install && next build",
+  "outputDirectory": "frontend/.next",
   "routes": [
     {
       "src": "/(.*)",
