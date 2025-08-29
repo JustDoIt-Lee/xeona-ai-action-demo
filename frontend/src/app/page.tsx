@@ -87,7 +87,9 @@ export default function Home() {
 
         {/* Upload Area */}
         <div
-          className={`dropzone ${isDragging ? 'dragging' : ''} ${showUpload ? '' : 'hidden'}`}
+          className={`p-16 text-center border-2 border-blue-200 rounded-xl transition-all duration-300 cursor-pointer
+            ${isDragging ? 'border-blue-400 bg-blue-50/70 scale-[1.02]' : 'hover:border-blue-300 hover:bg-blue-50/30'}
+            ${showUpload ? 'shadow-lg hover:shadow-xl' : 'hidden'}`}
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
