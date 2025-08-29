@@ -6,7 +6,7 @@ from typing import List, Dict
 from collections import Counter
 import re
 from models import DocumentAnalysis, KeywordInfo
-from openai import OpenAI
+from openai import AsyncOpenAI
 import httpx
 from dotenv import load_dotenv
 
@@ -18,8 +18,8 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY environment variable is not set")
 
-# OpenAI 클라이언트 초기화
-client = OpenAI(api_key=OPENAI_API_KEY)
+# OpenAI 비동기 클라이언트 초기화
+client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
 # GPT 모델 설정
 GPT_MODEL = "gpt-4-turbo-preview"  # 최신 GPT-4 모델 사용
