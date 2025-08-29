@@ -14,27 +14,37 @@ app = FastAPI(title="PDF 문서 분석기")
 async def read_root():
     return {"status": "ok", "message": "API is running"}
 
-# CORS 설정
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # 개발 테스트를 위해 임시로 모든 origin 허용
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["*"],
-    max_age=3600
-)
-
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.middleware.base import BaseHTTPMiddleware
+from fastapi import Request, Response
 
+# 커스텀 CORS 미들웨어
+class CustomCORSMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        
+        # 모든 응답에 CORS 헤더 추가
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "*"
+        response.headers["Access-Control-Max-Age"] = "3600"
+        
+        return response
+
+# CORS 미들웨어 추가
+app.add_middleware(CustomCORSMiddleware)
+
+# OPTIONS 요청 처리
 @app.options("/api/analyze")
 async def analyze_preflight():
-    return JSONResponse(
-        content={"detail": "OK"},
+    return Response(
+        content="",
         headers={
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS, GET",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Max-Age": "3600",
         }
     )
 
