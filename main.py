@@ -17,7 +17,15 @@ async def read_root():
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 모든 도메인 허용
+    allow_origins=[
+        "https://xeona-ai-action-demo-4jcolqz2q-justdoit-lees-projects-8e63c74d.vercel.app",
+        "https://xeona-ai-action-demo.vercel.app",
+        "http://localhost:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
     allow_credentials=False,  # False로 설정하여 CORS 제한 완화
     allow_methods=["*"],
     allow_headers=["*"],
