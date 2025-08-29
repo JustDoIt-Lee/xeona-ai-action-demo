@@ -88,8 +88,11 @@ export default function Home() {
         {/* Upload Area */}
         <div
           className={`border-2 border-dashed rounded-xl p-16 text-center transition-all duration-300 
-            ${isDragging ? 'border-blue-500 bg-blue-50/30 scale-[1.02]' : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50/30'}
-            ${showUpload ? 'cursor-pointer shadow-sm hover:shadow-lg' : 'hidden'}`}
+            ${isDragging 
+              ? 'border-blue-500 bg-blue-50 scale-[1.02] shadow-lg' 
+              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/60 hover:scale-[1.01]'
+            }
+            ${showUpload ? 'cursor-pointer shadow-sm hover:shadow-lg backdrop-blur-sm' : 'hidden'}`}
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
