@@ -207,8 +207,8 @@ export default function Home() {
                 <h3 className="text-xl font-semibold mb-4 text-gray-800">주요 내용</h3>
                 <ul className="space-y-3">
                   {result.mainTopics.map((topic, idx) => (
-                    <li key={idx} className="text-gray-700 text-lg flex items-center">
-                      <span className="mr-3 text-blue-500 leading-none">•</span>
+                    <li key={idx} className="text-gray-700 text-lg flex items-start">
+                      <span className="mr-3 text-blue-500">•</span>
                       {topic}
                     </li>
                   ))}
@@ -220,8 +220,8 @@ export default function Home() {
                   <h3 className="text-xl font-semibold mb-4 text-gray-800">추천사항</h3>
                   <ul className="space-y-3">
                     {result.recommendations.map((rec, idx) => (
-                      <li key={idx} className="text-gray-700 text-lg flex items-center">
-                        <span className="mr-3 text-blue-500 leading-none">•</span>
+                      <li key={idx} className="text-gray-700 text-lg flex items-start">
+                        <span className="mr-3 text-blue-500">•</span>
                         {rec}
                       </li>
                     ))}
