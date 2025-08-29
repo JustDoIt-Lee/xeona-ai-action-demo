@@ -18,13 +18,15 @@ async def read_root():
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://xeona-ai-action-demo-kyxsn1ls9-justdoit-lees-projects-8e63c74d.vercel.app",
         "https://xeona-ai-action-demo-4jcolqz2q-justdoit-lees-projects-8e63c74d.vercel.app",
         "https://xeona-ai-action-demo.vercel.app",
         "http://localhost:3000"
     ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 @app.post("/api/analyze", response_model=DocumentAnalysis)
