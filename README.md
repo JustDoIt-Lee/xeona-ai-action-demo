@@ -56,6 +56,3 @@ NEXT_PUBLIC_API_URL=https://xeona-ai-action-demo.onrender.com
 ## 배포 정보
 - 프론트엔드: Vercel
 - 백엔드: Render
-
-## 라이센스
-이 프로젝트는 MIT 라이센스를 따릅니다.
